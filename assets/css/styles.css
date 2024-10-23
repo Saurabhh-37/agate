@@ -426,7 +426,7 @@ body.dark-theme{
 .about__details-description{
   display: inline-flex;
   column-gap: .5rem;
-  font-size: var(--small-font-size);
+  font-size: var(--h3-font-size);
 }
 
 .about__details-icon{
@@ -474,7 +474,7 @@ body.dark-theme{
 }
 
 .steps__card-description{
-  font-size: var(--small-font-size);
+  font-size: var(--h3-font-size);
 }
 
 .steps__card:hover .steps__card-number{
@@ -769,7 +769,7 @@ body.dark-theme{
 }
 
 .footer__information{
-  font-size: var(--small-font-size);
+  font-size: var(--h2-font-size);
 }
 
 .footer__social{
