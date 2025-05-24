@@ -123,22 +123,45 @@ sr.reveal(`.about__img, .contact__box`,{origin: 'left'})
 sr.reveal(`.about__data, .contact__form`,{origin: 'right'})
 sr.reveal(`.steps__card, .product__card, .questions__group, .footer`,{interval: 100})
 
-/* Filter Functionality */
-const filterButtons = document.querySelectorAll('.filter-button');
-const productCards = document.querySelectorAll('.product__card');
+/* Results Tabs Functionality */
+const resultsTabButtons = document.querySelectorAll('.filter-container.results-tabs .filter-button');
+const resultsTabContents = document.querySelectorAll('.tab-content');
 
-filterButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        const year = button.getAttribute('data-year');
-        
-        productCards.forEach(card => {
-            const productYear = card.getAttribute('data-year');
-            
-            if (year === 'all' || productYear === year) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
+resultsTabButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    // Deactivate all buttons and contents
+    resultsTabButtons.forEach(btn => btn.classList.remove('active'));
+    resultsTabContents.forEach(content => content.classList.remove('active'));
+    // Activate clicked tab
+    button.classList.add('active');
+    const tabId = button.getAttribute('data-tab');
+    const content = document.getElementById(tabId);
+    if (content) content.classList.add('active');
+  });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Lazy-load all images for performance
+  document.querySelectorAll('img').forEach(img => { img.loading = 'lazy'; });
+  /* Lightbox functionality */
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  document.querySelectorAll('.product__container.grid.tab-content img').forEach(img => {
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src;
+      lightbox.classList.add('active');
     });
+  });
+  lightbox.addEventListener('click', e => {
+    if (e.target !== lightboxImg) {
+      lightbox.classList.remove('active');
+      lightboxImg.src = '';
+    }
+  });
+  document.addEventListener('keyup', e => {
+    if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+      lightbox.classList.remove('active');
+      lightboxImg.src = '';
+    }
+  });
 });
